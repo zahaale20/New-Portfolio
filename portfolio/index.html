@@ -4,7 +4,43 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Alex Zaharia</title>
+
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light' || theme === 'dark') {
+            document.documentElement.classList.add(theme);
+          } else {
+            document.documentElement.classList.add('dark'); // default
+          }
+        } catch(e) {}
+      })();
+    </script>
+    
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      html.dark, body.dark {
+        background-color: #000 !important;
+        color: #fff !important;
+      }
+      html.light, body.light {
+        background-color: #fff !important;
+        color: #000 !important;
+      }
+      #loading {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
