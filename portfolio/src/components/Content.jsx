@@ -5,12 +5,12 @@ import Contact from '../content-components/Contact.jsx';
 
 const Content = ({ activeSection }) => {
   return (
-    <div className="content-container">
+    <section id="content">
       {activeSection === 'projects' && <Projects />}
       {activeSection === 'experience' && <Experience />}
       {activeSection === 'about' && <About />}
       {activeSection === 'contact' && <Contact />}
-    </div>
+    </section>
   );
 };
 

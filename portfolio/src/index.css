@@ -56,10 +56,6 @@ body {
 
 /* Components */
 @layer components {
-    .app {
-        @apply w-full overflow-x-hidden flex flex-col transition-opacity duration-1000 ease-in px-[50px];
-    }
-
     /* Loading */
     #loading {
         @apply flex justify-center items-center w-full min-h-screen;
@@ -71,6 +67,10 @@ body {
         .text-portfolio {
             @apply text-4xl font-satoshi-light ml-2;
         }
+    }
+
+    .app {
+        @apply flex flex-col w-full h-screen transition-opacity duration-1000 ease-in px-[50px];
     }
 
     /* Theme Toggle */
@@ -95,45 +95,7 @@ body {
     }
 
     #main {
-        @apply relative w-full border border-gray-500 overflow-hidden [height:calc(100vh-100px)];
-
-        /* Navigation Bar */
-        .nav-bar {
-            @apply relative z-10 flex w-full max-h-50 flex-row justify-between items-start p-10;
-        }
-
-        .header-container {
-            @apply flex-col;
-        }
-
-        .nav-links {
-            @apply flex flex-row space-x-10; 
-        }
-
-        h1 {
-            @apply text-6xl font-satoshi-light;
-        }
-
-        .text-description {
-            @apply text-base font-satoshi-light mb-10;
-        }
-
-        nav {
-            @apply flex flex-col items-end;
-        }
-
-        nav button {
-            @apply relative text-sm font-satoshi-medium cursor-pointer;
-        }
-
-        nav button:hover {
-            @apply text-gray-400 transition-colors duration-300 ease-in-out;
-        }
-
-        /* Content */
-        .content-container {
-            @apply relative z-10 flex flex-row justify-between items-start p-10;
-        }
+        @apply flex flex-col relative w-full [height:calc(100vh-100px)] border border-gray-500 overflow-hidden;
 
         /* Background */
         .background {
@@ -141,9 +103,165 @@ body {
         }
     }
 
+    /* Navigation Bar */
+    #navbar {
+        @apply flex flex-row justify-between items-start relative z-10 w-full h-[200px] px-10 pt-10;
+
+        div {
+            @apply flex-col;
+        }
+
+        h1 {
+            @apply text-6xl font-satoshi-light;
+        }
+
+        p {
+            @apply text-base font-satoshi-light;
+        }
+
+        nav {
+            @apply flex-row space-x-10;
+        }
+
+        nav button {
+            @apply relative text-sm font-satoshi-medium cursor-pointer transition-colors duration-1500 ease-in-out;
+        }
+
+        nav button:hover:not(:disabled) {
+            @apply text-gray-400;
+        }
+
+        nav button.active,
+        nav button:disabled {
+            @apply text-gray-400 cursor-default;
+        }
+    }
+
+    /* Content */
+    #content {
+        @apply flex-1 overflow-y-auto pr-10 pb-10 relative;
+    }
+
+    /* Project Section */
+    #project {
+        @apply flex flex-row flex-nowrap w-full h-full;
+        position: relative;
+    }
+
+    #project::before,
+    #project::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100vh;
+        z-index: 5;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    /* Light theme gradient on ::before */
+    .light #project::before {
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.02) 0%,
+            rgba(255, 255, 255, 0.05) 8%,
+            rgba(255, 255, 255, 0.08) 15%,
+            rgba(255, 255, 255, 0.11) 25%,
+            rgba(255, 255, 255, 0.13) 35%,
+            rgba(255, 255, 255, 0.13) 45%,
+            rgba(255, 255, 255, 0.13) 55%,
+            rgba(255, 255, 255, 0.11) 65%,
+            rgba(255, 255, 255, 0.08) 75%,
+            rgba(255, 255, 255, 0.05) 82%,
+            rgba(255, 255, 255, 0.03) 88%,
+            rgba(255, 255, 255, 0.01) 94%,
+            transparent 100%
+        );
+        opacity: 1;
+        transition: opacity 750ms ease-in-out;
+    }
+
+    .dark #project::before {
+        opacity: 0;
+        transition: opacity 750ms ease-in-out;
+    }
+
+    /* Dark theme gradient on ::after */
+    .dark #project::after {
+        background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.03) 0%,
+            rgba(0, 0, 0, 0.08) 8%,
+            rgba(0, 0, 0, 0.12) 15%,
+            rgba(0, 0, 0, 0.17) 25%,
+            rgba(0, 0, 0, 0.21) 35%,
+            rgba(0, 0, 0, 0.22) 45%,
+            rgba(0, 0, 0, 0.21) 55%,
+            rgba(0, 0, 0, 0.17) 65%,
+            rgba(0, 0, 0, 0.12) 75%,
+            rgba(0, 0, 0, 0.08) 82%,
+            rgba(0, 0, 0, 0.05) 88%,
+            rgba(0, 0, 0, 0.02) 94%,
+            transparent 100%
+        );
+        opacity: 1;
+        transition: opacity 750ms ease-in-out;
+    }
+
+    .light #project::after {
+        opacity: 0;
+        transition: opacity 750ms ease-in-out;
+    }
+
+    #project nav {
+        @apply w-3/10 overflow-y-auto flex flex-col space-y-5 pl-10 relative z-10 h-full;
+        scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+        mask-repeat: no-repeat;
+        mask-size: 100% 100%;
+    }
+
+    /* Remove the old nav::before gradient */
+    /* #project nav::before { ... } - DELETE THIS */
+
+    #project nav button {
+        @apply text-xl font-satoshi-regular text-left cursor-pointer transition-colors duration-1500 ease-in-out;
+    }
+
+    #project nav button.active {
+        @apply text-gray-400 cursor-default;
+    }
+
+    #project nav button:hover:not(:disabled) {
+        @apply text-gray-400;
+    }
+
+    #project nav button.active,
+    #project nav button:disabled {
+        @apply text-gray-400 cursor-default;
+    }
+
+    #project div.project-details {
+        @apply relative z-50 w-7/10 flex flex-col justify-start px-10 overflow-auto h-full;
+    }
+
+    #project div.project-details h2 {
+        @apply relative z-50 text-5xl font-satoshi-regular mb-2;
+    }
+
+    #project div.project-details p {
+        @apply relative z-50 font-satoshi-light text-xl mb-2;
+    }
+
+
     /* Footer */
     #footer {
-        @apply [height:(50px)] flex justify-between items-center;
+       @apply h-[50px] flex justify-between items-center;
 
         .text-madeby {
             @apply text-xs font-satoshi-medium;
